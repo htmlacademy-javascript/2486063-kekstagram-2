@@ -4,26 +4,6 @@ const getRandomInteger = (a, b) => {
   return Math.floor(Math.random() * (upper - lower + 1)) + lower;
 };
 
-const getUniqueRangeInteger = (min, max) => {
-  const usedInteger = [];
-
-  return function () {
-    if (usedInteger.length >= (max - min + 1)) {
-      console.error(`Перебраны все числа из диапазона от ${min} до ${max}`);
-      return null;
-    }
-
-    let currentInteger;
-
-    do {
-      currentInteger = getRandomInteger(min, max);
-    } while (usedInteger.includes(currentInteger));
-
-    usedInteger.push(currentInteger);
-    return currentInteger;
-  };
-};
-
 const DESCRIPTIONS = [
   'Прекрасный закат на побережье',
   'Уютное кафе в центре города',
