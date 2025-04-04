@@ -1,5 +1,5 @@
-
 import {createPhotoDescriptions} from './photo.js';
+import {renderThumbnails} from './thumbnail.js';
 
 const photos = createPhotoDescriptions();
-console.log('photos:', photos);
+renderThumbnails(photos);
