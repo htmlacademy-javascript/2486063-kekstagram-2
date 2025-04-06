@@ -1,9 +1,13 @@
+import {sendData} from './api.js';
+import {showSuccess, showError} from './message.js';
+
 const form = document.querySelector('.img-upload__form');
 const uploadInput = form.querySelector('.img-upload__input');
 const overlay = form.querySelector('.img-upload__overlay');
 const cancelButton = form.querySelector('.img-upload__cancel');
 const hashtagInput = form.querySelector('.text__hashtags');
 const commentInput = form.querySelector('.text__description');
+const submitButton = form.querySelector('.img-upload__submit');
 
 const HASHTAG_REGEX = /^#[a-zа-яё0-9]{1,19}$/i;
 const MAX_HASHTAGS = 5;
@@ -69,19 +73,38 @@ function showForm() {
   document.addEventListener('keydown', onEscKeydown);
 }
 
-uploadInput.addEventListener('change', () => {
-  showForm();
-});
+const toggleSubmitButton = (disabled) => {
+  submitButton.disabled = disabled;
+  submitButton.textContent = disabled ? 'Публикация...' : 'Опубликовать';
+};
 
-cancelButton.addEventListener('click', () => {
-  hideForm();
-});
+const initForm = () => {
+  uploadInput.addEventListener('change', () => {
+    showForm();
+  });
 
-form.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  if (pristine.validate()) {
-    form.submit();
-  }
-});
+  cancelButton.addEventListener('click', () => {
+    hideForm();
+  });
 
-export { showForm, hideForm };
+  form.addEventListener('submit', async (evt) => {
+    evt.preventDefault();
+
+    if (!pristine.validate()) {
+      return;
+    }
+
+    try {
+      toggleSubmitButton(true);
+      await sendData(new FormData(evt.target));
+      hideForm();
+      showSuccess();
+    } catch {
+      showError();
+    } finally {
+      toggleSubmitButton(false);
+    }
+  });
+};
+
+export {initForm};
