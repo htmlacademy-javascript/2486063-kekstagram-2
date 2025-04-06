@@ -20,7 +20,13 @@ const createThumbnail = (pictureData) => {
   return thumbnail;
 };
 
+const clearThumbnails = () => {
+  const pictures = picturesContainer.querySelectorAll('.picture');
+  pictures.forEach((picture) => picture.remove());
+};
+
 const renderThumbnails = (pictures) => {
+  clearThumbnails();
   const fragment = document.createDocumentFragment();
   pictures.forEach((picture) => {
     const thumbnail = createThumbnail(picture);
