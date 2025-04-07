@@ -73,7 +73,6 @@ const hideForm = () => {
   form.reset();
   pristine.reset();
 
-  // Полностью удаляем элементы с ошибками
   const errors = form.querySelectorAll('.pristine-error');
   errors.forEach((error) => error.remove());
 
@@ -154,7 +153,6 @@ const initForm = () => {
       return;
     }
 
-    // Очищаем все ошибки при открытии формы
     pristine.reset();
     const errors = form.querySelectorAll('.pristine-error');
     errors.forEach((error) => error.remove());
@@ -183,7 +181,6 @@ const initForm = () => {
       toggleSubmitButton(true);
       const formData = new FormData(evt.target);
 
-      // Добавляем дополнительные данные
       const scale = document.querySelector('.scale__control--value')?.value || '100%';
       const effect = document.querySelector('.effects__radio:checked')?.value || 'none';
       const description = commentInput.value;
