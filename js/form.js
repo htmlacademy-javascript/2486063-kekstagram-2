@@ -8,6 +8,7 @@ const cancelButton = form.querySelector('.img-upload__cancel');
 const hashtagInput = form.querySelector('.text__hashtags');
 const commentInput = form.querySelector('.text__description');
 const submitButton = form.querySelector('.img-upload__submit');
+const previewImage = form.querySelector('.img-upload__preview img');
 
 const HASHTAG_REGEX = /^#[a-zа-яё0-9]{1,19}$/i;
 const MAX_HASHTAGS = 5;
@@ -65,6 +66,7 @@ function hideForm() {
   overlay.classList.add('hidden');
   document.body.classList.remove('modal-open');
   document.removeEventListener('keydown', onEscKeydown);
+  previewImage.src = '';
 }
 
 function showForm() {
@@ -80,6 +82,10 @@ const toggleSubmitButton = (disabled) => {
 
 const initForm = () => {
   uploadInput.addEventListener('change', () => {
+    const file = uploadInput.files[0];
+    if (file) {
+      previewImage.src = URL.createObjectURL(file);
+    }
     showForm();
   });
 
