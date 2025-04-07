@@ -114,8 +114,11 @@ const updateSlider = () => {
   }
 };
 
+const formatSliderValue = (value) => Number(value).toString();
+
 const onSliderUpdate = () => {
-  const sliderValue = effectLevelSlider.noUiSlider.get();
+  const rawValue = effectLevelSlider.noUiSlider.get();
+  const sliderValue = formatSliderValue(rawValue);
   effectLevelValue.value = sliderValue;
   imagePreview.style.filter = isDefault()
     ? ''

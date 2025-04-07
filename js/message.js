@@ -8,7 +8,10 @@ const errorTemplate = document.querySelector('#error')
 
 const hideMessage = () => {
   const existingMessage = document.querySelector('.success') || document.querySelector('.error');
-  existingMessage?.remove();
+  if (existingMessage) {
+    existingMessage.dispatchEvent(new Event('message-close', { bubbles: true }));
+    existingMessage.remove();
+  }
   document.removeEventListener('keydown', onDocumentKeydown);
   document.body.removeEventListener('click', onBodyClick);
 };
@@ -16,6 +19,7 @@ const hideMessage = () => {
 function onDocumentKeydown(evt) {
   if (evt.key === 'Escape') {
     evt.preventDefault();
+    evt.stopPropagation();
     hideMessage();
   }
 }

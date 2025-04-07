@@ -7,7 +7,6 @@ const FilterType = {
   DISCUSSED: 'discussed'
 };
 
-const filterElement = document.querySelector('.img-filters');
 const filterForm = document.querySelector('.img-filters__form');
 
 const getRandomIndex = (min, max) => Math.floor(Math.random() * (max - min));
@@ -36,14 +35,13 @@ const filters = {
 
 const debounce = (callback, timeoutDelay = RERENDER_DELAY) => {
   let timeoutId;
-  return (...rest) => {
+  return function (...args) {
     clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+    timeoutId = setTimeout(() => callback.apply(this, args), timeoutDelay);
   };
 };
 
 const initFilters = (pictures, renderCallback) => {
-  filterElement.classList.remove('img-filters--inactive');
 
   const debouncedRender = debounce(renderCallback);
 
