@@ -1,5 +1,6 @@
 import {sendData} from './api.js';
 import {showSuccess, showError} from './message.js';
+import {resetScale} from './scale.js';
 
 const form = document.querySelector('.img-upload__form');
 const uploadInput = form.querySelector('.img-upload__input');
@@ -72,6 +73,7 @@ let onEscKeydown = null;
 const hideForm = () => {
   form.reset();
   pristine.reset();
+  resetScale();
 
   const errors = form.querySelectorAll('.pristine-error');
   errors.forEach((error) => error.remove());

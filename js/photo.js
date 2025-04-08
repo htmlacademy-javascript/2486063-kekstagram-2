@@ -1,7 +1,9 @@
 import {getData} from './api.js';
 
+const LOADING_DELAY = 100;
+
 const loadPhotos = async () => {
-  await new Promise((resolve) => setTimeout(resolve, 100));
+  await new Promise((resolve) => setTimeout(resolve, LOADING_DELAY));
   try {
     const photos = await getData();
     return photos;
